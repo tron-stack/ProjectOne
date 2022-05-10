@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DaoUtilities {
 
-    private static final String CONNECTION_USERNAME = "chime";
+    private static final String CONNECTION_USERNAME = "dbuser";
     private static final String CONNECTION_PASSWORD = "password";
-    private static final String URL = "jdbc:postgresql://localhost:5432/reimbdb";
+    private static final String URL = "jdbc:postgresql://localhost:5432/reimbursementdb";
     private static Connection connection;
 
     public static synchronized Connection getConnection() throws SQLException {

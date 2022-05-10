@@ -61,6 +61,28 @@ public class UserDaoJDBC implements IUserDao{
     }
 
     @Override
+    public User getUserByUsername(String username) {
+
+        String sql = "Select * from users where username = ?";
+
+        try {
+            conn = DaoUtilities.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            User loggedIn = null;
+            while(rs.next()){
+                loggedIn = new User(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5), rs.getString(6),rs.getInt(7));
+            }
+            return loggedIn;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+
+        }
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return null;
     }

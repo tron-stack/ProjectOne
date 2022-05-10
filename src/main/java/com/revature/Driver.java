@@ -7,8 +7,7 @@ import com.revature.models.User;
 import com.revature.services.UserService;
 import io.javalin.Javalin;
 
-import static io.javalin.apibuilder.ApiBuilder.path;
-import static io.javalin.apibuilder.ApiBuilder.post;
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Driver {
 
@@ -28,7 +27,7 @@ public class Driver {
             path("users", () -> {
                 post("/register", uc.handleRegister);
                 post("/login", uc.handleLogin);
-                post("/logout", uc.handleLogout);
+                put("/logout", uc.handleLogout);
             });
         });
         // checking update

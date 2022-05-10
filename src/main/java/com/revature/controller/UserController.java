@@ -42,5 +42,10 @@ public class UserController {
 		}
 	};
 
+	public Handler handleLogout = (ctx) -> {
+		ctx.req.getSession().invalidate();
+		ctx.result("You logged out");
+	};
+
 
 }

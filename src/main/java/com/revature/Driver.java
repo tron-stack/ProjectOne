@@ -28,6 +28,7 @@ public class Driver {
             path("users", () -> {
                 post("/register", uc.handleRegister);
                 post("/login", uc.handleLogin);
+                post("/logout", uc.handleLogout);
             });
         });
         // checking update

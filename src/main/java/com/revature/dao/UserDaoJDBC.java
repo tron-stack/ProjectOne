@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserDaoJDBC implements IUserDao{
 
@@ -60,6 +61,11 @@ public class UserDaoJDBC implements IUserDao{
     }
 
     @Override
+    public List<User> getAllUsers() {
+        return null;
+    }
+
+    @Override
     public User updateUser(User user) {
 
         String sql = "Update users SET username = ?, password = ?, first_name = ?, last_name = ?, email = ?, role = ? Where user_id = ?";
@@ -90,6 +96,15 @@ public class UserDaoJDBC implements IUserDao{
 
     @Override
     public void deleteUser(int id) {
+        String sql = "delete from users where user_id = ?";
+        try {
+            conn = DaoUtilities.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
 
     }
 }

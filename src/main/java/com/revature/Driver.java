@@ -28,6 +28,7 @@ public class Driver {
                 post("/register", uc.handleRegister);
                 post("/login", uc.handleLogin);
                 put("/logout", uc.handleLogout);
+                get("/", uc.handleGetAllUsers);
             });
         });
         // checking update

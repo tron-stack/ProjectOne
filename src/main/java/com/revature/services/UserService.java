@@ -3,6 +3,8 @@ package com.revature.services;
 import com.revature.dao.IUserDao;
 import com.revature.models.User;
 
+import java.util.List;
+
 public class UserService {
 
 	private IUserDao iud;
@@ -17,6 +19,9 @@ public class UserService {
 		iud.createUser(register);
 	}
 
+	public List<User> readUserList() {
+		return iud.getAllUsers();
+	}
 	public User loginUser(String username, String password) {
 		User u = iud.getUserByUsername(username);
 		if(u != null){

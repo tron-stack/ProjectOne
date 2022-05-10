@@ -3,10 +3,12 @@ package com.revature.dao;
 import com.revature.models.User;
 import com.revature.utils.DaoUtilities;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBC implements IUserDao{
@@ -84,7 +86,23 @@ public class UserDaoJDBC implements IUserDao{
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        String sql = "Select * from users";
+        List<User> userList = new ArrayList<>();
+
+        try{
+            conn = DaoUtilities.getConnection();
+            ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                User user = new User(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6), rs.getInt(7));
+
+                userList.add(user);
+            }
+            return userList;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

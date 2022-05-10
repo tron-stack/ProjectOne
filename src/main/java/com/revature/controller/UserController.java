@@ -26,6 +26,11 @@ public class UserController {
 		ctx.result("Create user");
 	};
 
+	public Handler handleGetAllUsers = (ctx) -> {
+		ctx.result(om.writeValueAsString(us.readUserList()));
+		ctx.status(200);
+	};
+
 	public Handler handleLogin = (ctx) -> {
 		LoginObject lo = om.readValue(ctx.body(), LoginObject.class);
 

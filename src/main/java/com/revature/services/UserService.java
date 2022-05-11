@@ -23,6 +23,9 @@ public class UserService {
 	public List<User> readUserList() {
 		return iud.getAllUsers();
 	}
+	public void updateUser(User user){
+		iud.updateUser(user);
+	}
 	public User loginUser(String username, String password) {
 		User u = iud.getUserByUsername(username);
 		if(u != null){

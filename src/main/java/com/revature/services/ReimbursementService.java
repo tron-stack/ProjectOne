@@ -18,8 +18,11 @@ public class ReimbursementService {
         ird.createReimbursement(reimbursement);
     }
 
-    public List<Reimbursement> getAllRequestsByStatus(int statusId){
-        return ird.readAllRequestsByStatus(statusId);
+    public List<Reimbursement> getAllRequestsByStatus(int userid, int statusId){
+        return ird.readAllRequestsByStatus(userid, statusId);
     }
 
+    public List<Reimbursement> getAllRequestsByUserId(int id){
+        return ird.readAllRequestsById(id);
+    }
 }

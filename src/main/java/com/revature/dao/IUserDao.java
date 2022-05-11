@@ -13,6 +13,6 @@ public interface IUserDao {
     public User getUserByUsername(String username);
     public List<User> getAllUsers();
 
-    public User updateUser(User user);
+    public void updateUser(User user);
     public void deleteUser(int id);
 }

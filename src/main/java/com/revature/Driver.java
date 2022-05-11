@@ -35,12 +35,14 @@ public class Driver {
             path("users", () -> {
                 post("/register", uc.handleRegister);
                 post("/login", uc.handleLogin);
+                put("/", uc.handleUpdateUser);
                 put("/logout", uc.handleLogout);
                 get("/", uc.handleGetAllUsers);
                 get("/{id}",uc.handleGetUserById);
             });
             path("reimbursement", () -> {
                 post("/register", rc.handleRegister);
+                get("/all", rc.handleGetAllRequestsByUserId);
                 get("/status/{id}", rc.handleGetAllRequestsByStatus);
             });
         });

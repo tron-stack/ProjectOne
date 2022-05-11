@@ -37,22 +37,46 @@ public class ReimbursementDaoJDBC implements IReimbursementDao{
     }
 
     @Override
-    public List<Reimbursement> readAllRequestsByStatus(int statusId) {
-        String sql = "Select * from reimbursement where reimbursement_status = ?";
+    public List<Reimbursement> readAllRequestsByStatus(int userid, int statusId) {
+        String sql = "Select * from reimbursement where reimbursement_author = ? and reimbursement_status = ?";
 
         try{
             conn = DaoUtilities.getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1,statusId);
+            ps.setInt(1,userid);
+            ps.setInt(2,statusId);
 
             ResultSet rs = ps.executeQuery();
-            List<Reimbursement> pendingList = new ArrayList<>();
+            List<Reimbursement> requestList = new ArrayList<>();
             while(rs.next()){
-                Reimbursement reqest = new Reimbursement(rs.getInt(1), rs.getDouble(2),rs.getDate(3), rs.getDate(4),rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));
+                Reimbursement request = new Reimbursement(rs.getInt(1), rs.getDouble(2),rs.getDate(3), rs.getDate(4),rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));
 
-                pendingList.add(reqest);
+                requestList.add(request);
             }
-            return pendingList;
+            return requestList;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Reimbursement> readAllRequestsById(int userId) {
+        String sql = "Select * from reimbursement where reimbursement_author = ?";
+
+        try{
+            conn = DaoUtilities.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,userId);
+
+            ResultSet rs = ps.executeQuery();
+            List<Reimbursement> requestList = new ArrayList<>();
+            while(rs.next()){
+                Reimbursement request = new Reimbursement(rs.getInt(1), rs.getDouble(2),rs.getDate(3), rs.getDate(4),rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));
+
+                requestList.add(request);
+            }
+            return requestList;
         }catch(SQLException e){
             e.printStackTrace();
             return null;

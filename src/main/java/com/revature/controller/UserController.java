@@ -36,6 +36,18 @@ public class UserController {
 		ctx.result(om.writeValueAsString(us.getUserById(id)));
 		ctx.status(200);
 	};
+
+	public Handler handleUpdateUser = (ctx) -> {
+		int userid = Integer.parseInt((String)ctx.req.getSession().getAttribute("userId"));
+		User user = new User();
+		user = om.readValue(ctx.body(), User.class);
+		user.setUserID(userid);
+
+
+		us.updateUser(user);
+		ctx.status(201);
+		ctx.result("User updated");
+	};
 	public Handler handleLogin = (ctx) -> {
 		LoginObject lo = om.readValue(ctx.body(), LoginObject.class);
 
@@ -48,6 +60,7 @@ public class UserController {
 			//We could also, if the user is logged in successfully, set up a session for them
 			ctx.req.getSession().setAttribute("loggedIn", u.getUserName());
 			ctx.req.getSession().setAttribute("roleId", ""+u.getUserRole());
+			ctx.req.getSession().setAttribute("userId", ""+u.getUserID());
 			ctx.result(om.writeValueAsString(u));
 		}
 	};

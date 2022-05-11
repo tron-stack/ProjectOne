@@ -105,7 +105,7 @@ public class UserDaoJDBC implements IUserDao{
     }
 
     @Override
-    public User updateUser(User user) {
+    public void updateUser(User user) {
 
         String sql = "Update users SET username = ?, password = ?, first_name = ?, last_name = ?, email = ?, role = ? Where user_id = ?";
 
@@ -121,15 +121,10 @@ public class UserDaoJDBC implements IUserDao{
             ps.setInt(6,user.getUserRole());
             ps.setInt(7, user.getUserID());
 
-            ResultSet rs = ps.executeQuery();
-            User u = null;
-            while(rs.next()){
-                u = new User(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
-            }
-            return u;
+            ps.execute();
+
         }catch(SQLException e){
             e.printStackTrace();
-            return null;
         }
     }
 

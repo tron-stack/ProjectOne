@@ -17,7 +17,9 @@ public class UserService {
 		User register = new User(0, username, password, firstName, lastName, email, userRole);
 		iud.createUser(register);
 	}
-
+	public User getUserById(int id){
+		return iud.getUserById(id);
+	}
 	public List<User> readUserList() {
 		return iud.getAllUsers();
 	}

@@ -37,6 +37,7 @@ public class Driver {
                 post("/login", uc.handleLogin);
                 put("/logout", uc.handleLogout);
                 get("/", uc.handleGetAllUsers);
+                get("/{id}",uc.handleGetUserById);
             });
             path("reimbursement", () -> {
                 post("/register", rc.handleRegister);

@@ -31,6 +31,11 @@ public class UserController {
 		ctx.status(200);
 	};
 
+	public Handler handleGetUserById = (ctx) -> {
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		ctx.result(om.writeValueAsString(us.getUserById(id)));
+		ctx.status(200);
+	};
 	public Handler handleLogin = (ctx) -> {
 		LoginObject lo = om.readValue(ctx.body(), LoginObject.class);
 

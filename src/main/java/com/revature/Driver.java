@@ -1,14 +1,17 @@
 package com.revature;
 
+import com.revature.controller.ReimbursementController;
 import com.revature.controller.UserController;
+import com.revature.dao.IReimbursementDao;
 import com.revature.dao.IUserDao;
+import com.revature.dao.ReimbursementDaoJDBC;
 import com.revature.dao.UserDaoJDBC;
 import com.revature.models.User;
+import com.revature.services.ReimbursementService;
 import com.revature.services.UserService;
 import io.javalin.Javalin;
 
-import static io.javalin.apibuilder.ApiBuilder.path;
-import static io.javalin.apibuilder.ApiBuilder.post;
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Driver {
 
@@ -17,8 +20,11 @@ public class Driver {
 
 
         IUserDao iud = new UserDaoJDBC();
+        IReimbursementDao ird = new ReimbursementDaoJDBC();
         UserService us = new UserService(iud);
+        ReimbursementService rs = new ReimbursementService(ird);
         UserController uc = new UserController(us);
+        ReimbursementController rc = new ReimbursementController(rs);
 
         Javalin server = Javalin.create(config -> {
             config.enableCorsForAllOrigins();
@@ -28,6 +34,19 @@ public class Driver {
             path("users", () -> {
                 post("/register", uc.handleRegister);
                 post("/login", uc.handleLogin);
+                get("/all", uc.handleAllUsers);
+                put("/logout", uc.handleLogout);
+            });
+        });
+
+        server.routes(()-> {
+            path("reimbursements", () -> {
+                get("/all", rc.handleAllReimbursements);
+                get("/resolved", rc.handleAllResolvedReimbursements);
+                get("/pending", rc.handleAllPendingReimbursements);
+                get("/{id}", rc.handleGetReimbursementsById);
+                put("/{id}", rc.handleApproveReimbursementsById);
+                put("/deny/{id}", rc.handleDenyReimbursementsById);
             });
         });
         // checking update

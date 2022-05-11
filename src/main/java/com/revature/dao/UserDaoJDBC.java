@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import com.revature.models.Reimbursement;
 import com.revature.models.User;
 import com.revature.utils.DaoUtilities;
 
@@ -7,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserDaoJDBC implements IUserDao{
@@ -17,6 +20,8 @@ public class UserDaoJDBC implements IUserDao{
     @Override
     public void createUser(User user) {
         String sql = "insert into users(username, password, first_name, last_name, email, role) values (?,?,?,?,?,?)";
+
+
 
         try{
             conn = DaoUtilities.getConnection();
@@ -84,7 +89,24 @@ public class UserDaoJDBC implements IUserDao{
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        String sql = "Select * from users";
+
+        try {
+            conn = DaoUtilities.getConnection();
+            ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            List<User> list = new ArrayList<>();
+            User loggedIn = null;
+            while(rs.next()){
+                loggedIn = new User(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5), rs.getString(6),rs.getInt(7));
+                list.add(loggedIn);
+            }
+            return list;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+
+        }
     }
 
     @Override
@@ -129,4 +151,6 @@ public class UserDaoJDBC implements IUserDao{
         }
 
     }
+
+
 }

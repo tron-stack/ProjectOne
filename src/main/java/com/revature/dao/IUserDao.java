@@ -15,4 +15,5 @@ public interface IUserDao {
 
     public User updateUser(User user);
     public void deleteUser(int id);
+
 }

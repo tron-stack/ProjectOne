@@ -1,7 +1,10 @@
 package com.revature.services;
 
 import com.revature.dao.IUserDao;
+import com.revature.models.Reimbursement;
 import com.revature.models.User;
+
+import java.util.List;
 
 public class UserService {
 
@@ -13,8 +16,13 @@ public class UserService {
 
 
 	public void registerUser(String username, String password, String firstName, String lastName, String email, int userRole) {
-		User register = new User(0, username, password, firstName, lastName, email, userRole);
-		iud.createUser(register);
+
+
+
+				User register = new User(0, username, password, firstName, lastName, email, userRole);
+				iud.createUser(register);
+
+
 	}
 
 	public User loginUser(String username, String password) {
@@ -30,5 +38,13 @@ public class UserService {
 		}
 		return null;
 	}
+
+	public List<User> getAllUser() {
+		return iud.getAllUsers();
+	}
+	public User getUserByUsername(String username){
+		return iud.getUserByUsername(username);
+	}
+
 
 }

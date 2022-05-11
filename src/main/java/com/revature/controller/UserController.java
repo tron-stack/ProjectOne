@@ -7,6 +7,8 @@ import com.revature.models.User;
 import com.revature.services.UserService;
 import io.javalin.http.Handler;
 
+import java.util.Objects;
+
 public class UserController {
 	private UserService us;
 	private ObjectMapper om;
@@ -21,9 +23,14 @@ public class UserController {
 
 		//System.out.println(ro);
 
+
 		us.registerUser(ro.username, ro.password, ro.firstName, ro.lastName, ro.email, ro.userRole);
-		ctx.status(201);
-		ctx.result("Create user");
+				ctx.status(201);
+				ctx.result("Create user");
+
+
+
+
 	};
 
 	public Handler handleLogin = (ctx) -> {
@@ -40,6 +47,22 @@ public class UserController {
 			ctx.req.getSession().setAttribute("roleId", ""+u.getUserRole());
 			ctx.result(om.writeValueAsString(u));
 		}
+	};
+
+	public Handler handleAllUsers = (ctx) -> {
+		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
+			ctx.status(401);
+			ctx.result("You must login as manager to view User data");
+		} else {
+			us.getAllUser();
+			ctx.result(om.writeValueAsString(us.getAllUser()));
+		}
+
+	};
+
+	public Handler handleLogout = (ctx) -> {
+		ctx.req.getSession().invalidate();
+		ctx.result("You logged out");
 	};
 
 

@@ -28,6 +28,18 @@ public class Reimbursement {
         this.reimbursementType = reimbursementType;
         this.reimbursementStatus = reimbursementStatus;
     }
+    public Reimbursement( double amount, Date dateSubmitted, Date dateResolved,
+                         String description, int reimbursementAuthor, int reimbursementResolver,
+                         int reimbursementType, int reimbursementStatus) {
+        this.amount = amount;
+        this.dateSubmitted = dateSubmitted;
+        this.dateResolved = dateResolved;
+        this.description = description;
+        this.reimbursementAuthor = reimbursementAuthor;
+        this.reimbursementResolver = reimbursementResolver;
+        this.reimbursementType = reimbursementType;
+        this.reimbursementStatus = reimbursementStatus;
+    }
 
     public int getReimbursementId() {
         return reimbursementId;

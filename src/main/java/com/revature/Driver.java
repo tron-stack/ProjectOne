@@ -1,9 +1,13 @@
 package com.revature;
 
+import com.revature.controller.ReimbursementController;
 import com.revature.controller.UserController;
+import com.revature.dao.IReimbursementDao;
 import com.revature.dao.IUserDao;
+import com.revature.dao.ReimbursementDaoJDBC;
 import com.revature.dao.UserDaoJDBC;
 import com.revature.models.User;
+import com.revature.services.ReimbursementService;
 import com.revature.services.UserService;
 import io.javalin.Javalin;
 
@@ -19,6 +23,10 @@ public class Driver {
         UserService us = new UserService(iud);
         UserController uc = new UserController(us);
 
+        IReimbursementDao ird = new ReimbursementDaoJDBC();
+        ReimbursementService rs = new ReimbursementService(ird);
+        ReimbursementController rc = new ReimbursementController(rs);
+
         Javalin server = Javalin.create(config -> {
             config.enableCorsForAllOrigins();
             // config.addStaticFiles("/public", Location.CLASSPATH);
@@ -29,6 +37,9 @@ public class Driver {
                 post("/login", uc.handleLogin);
                 put("/logout", uc.handleLogout);
                 get("/", uc.handleGetAllUsers);
+            });
+            path("reimbursement", () -> {
+                post("/register", rc.handleRegister);
             });
         });
         // checking update

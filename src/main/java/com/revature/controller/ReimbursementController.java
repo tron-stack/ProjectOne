@@ -22,7 +22,7 @@ public class ReimbursementController {
         ctx.result("Reimbursement Registered");
     };
 
-    public Handler handleGetAllPendingRequests = (ctx) -> {
+    public Handler handleGetAllRequestsByStatus = (ctx) -> {
         int id = Integer.parseInt(ctx.pathParam("id"));
         ctx.result(om.writeValueAsString(rs.getAllRequestsByStatus(id)));
         ctx.status(200);

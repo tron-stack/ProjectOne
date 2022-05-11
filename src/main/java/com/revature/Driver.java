@@ -41,7 +41,7 @@ public class Driver {
             });
             path("reimbursement", () -> {
                 post("/register", rc.handleRegister);
-                get("/status/{id}", rc.handleGetAllPendingRequests);
+                get("/status/{id}", rc.handleGetAllRequestsByStatus);
             });
         });
         // checking update

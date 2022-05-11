@@ -21,4 +21,10 @@ public class ReimbursementController {
         ctx.status(201);
         ctx.result("Reimbursement Registered");
     };
+
+    public Handler handleGetAllPendingRequests = (ctx) -> {
+        int id = Integer.parseInt(ctx.pathParam("id"));
+        ctx.result(om.writeValueAsString(rs.getAllPendingRequests(id)));
+        ctx.status(200);
+    };
 }

@@ -3,10 +3,9 @@ package com.revature.dao;
 import com.revature.models.Reimbursement;
 import com.revature.utils.DaoUtilities;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReimbursementDaoJDBC implements IReimbursementDao{
     Connection conn = null;
@@ -34,6 +33,30 @@ public class ReimbursementDaoJDBC implements IReimbursementDao{
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Reimbursement> readAllPendingRequests(int statusId) {
+
+        String sql = "Select * from reimbursement where reimbursement_status = ?";
+
+        try{
+            conn = DaoUtilities.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,statusId);
+
+            ResultSet rs = ps.executeQuery();
+            List<Reimbursement> pendingList = new ArrayList<>();
+            while(rs.next()){
+                Reimbursement reqest = new Reimbursement(rs.getInt(1), rs.getDouble(2),rs.getDate(3), rs.getDate(4),rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));
+
+                pendingList.add(reqest);
+            }
+            return pendingList;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
         }
     }
 }

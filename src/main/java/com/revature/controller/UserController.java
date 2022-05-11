@@ -45,6 +45,7 @@ public class UserController {
 			//We could also, if the user is logged in successfully, set up a session for them
 			ctx.req.getSession().setAttribute("loggedIn", u.getUserName());
 			ctx.req.getSession().setAttribute("roleId", ""+u.getUserRole());
+			ctx.req.getSession().setAttribute("userId", ""+u.getUserID());
 			ctx.result(om.writeValueAsString(u));
 		}
 	};

@@ -68,9 +68,9 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			List<Reimbursement> list = new ArrayList<>();
-			Reimbursement reimb = null;
+
 			while(rs.next()){
-				reimb = new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
+				Reimbursement reimb = new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
 				list.add(reimb);
 			}
 			return list;
@@ -89,9 +89,9 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			List<Reimbursement> list = new ArrayList<>();
-			Reimbursement reimb = null;
+
 			while(rs.next()){
-				reimb = new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
+				Reimbursement reimb = new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
 				list.add(reimb);
 			}
 			return list;
@@ -110,9 +110,9 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			List<Reimbursement> list = new ArrayList<>();
-			Reimbursement reimb = null;
+
 			while(rs.next()){
-				reimb = new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
+				Reimbursement reimb = new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
 				list.add(reimb);
 			}
 			return list;
@@ -132,9 +132,9 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			List<Reimbursement> list = new ArrayList<>();
-			Reimbursement reimb = null;
+
 			while(rs.next()){
-				reimb = new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
+				Reimbursement reimb = new Reimbursement(rs.getInt(1), rs.getDouble(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
 				list.add(reimb);
 			}
 			return list;

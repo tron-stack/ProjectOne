@@ -41,7 +41,7 @@ public class Driver {
 
         server.routes(()-> {
             path("reimbursements", () -> {
-                post("/register", rc.handleRegister);
+                post("/register", rc.handleRegisterReimbursement);
                 get("/all", rc.handleAllReimbursements);
                 get("/resolved", rc.handleAllResolvedReimbursements);
                 get("/pendingmanager", rc.handleAllPendingReimbursements);

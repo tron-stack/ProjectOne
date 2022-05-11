@@ -37,8 +37,7 @@ public class ReimbursementDaoJDBC implements IReimbursementDao{
     }
 
     @Override
-    public List<Reimbursement> readAllPendingRequests(int statusId) {
-
+    public List<Reimbursement> readAllRequestsByStatus(int statusId) {
         String sql = "Select * from reimbursement where reimbursement_status = ?";
 
         try{

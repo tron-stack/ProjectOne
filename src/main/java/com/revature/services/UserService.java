@@ -13,7 +13,6 @@ public class UserService {
 		this.iud = iud;
 	}
 
-
 	public void registerUser(String username, String password, String firstName, String lastName, String email, int userRole) {
 		User register = new User(0, username, password, firstName, lastName, email, userRole);
 		iud.createUser(register);

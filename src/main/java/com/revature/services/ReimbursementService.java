@@ -18,8 +18,8 @@ public class ReimbursementService {
         ird.createReimbursement(reimbursement);
     }
 
-    public List<Reimbursement> getAllPendingRequests(int statusId){
-        return ird.readAllPendingRequests(statusId);
+    public List<Reimbursement> getAllRequestsByStatus(int statusId){
+        return ird.readAllRequestsByStatus(statusId);
     }
 
 }

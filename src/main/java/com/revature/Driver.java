@@ -40,7 +40,7 @@ public class Driver {
             });
             path("reimbursement", () -> {
                 post("/register", rc.handleRegister);
-                get("/{id}", rc.handleGetAllPendingRequests);
+                get("/status/{id}", rc.handleGetAllPendingRequests);
             });
         });
         // checking update

@@ -8,6 +8,7 @@ public interface IReimbursementDao {
 
     public void createReimbursement(Reimbursement reimbursement);
 
-    public List<Reimbursement> readAllPendingRequests(int statusId);
+    public List<Reimbursement> readAllRequestsByStatus(int statusId);
+
 
 }

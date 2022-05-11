@@ -41,9 +41,11 @@ public class Driver {
 
         server.routes(()-> {
             path("reimbursements", () -> {
+                post("/register", rc.handleRegister);
                 get("/all", rc.handleAllReimbursements);
                 get("/resolved", rc.handleAllResolvedReimbursements);
-                get("/pending", rc.handleAllPendingReimbursements);
+                get("/pendingmanager", rc.handleAllPendingReimbursements);
+                get("/pendinguser", rc.handleGetAllPendingRequests);
                 get("/{id}", rc.handleGetReimbursementsById);
                 put("/{id}", rc.handleApproveReimbursementsById);
                 put("/deny/{id}", rc.handleDenyReimbursementsById);

@@ -1,6 +1,7 @@
 package com.revature.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.models.RegisterReimbObject;
 import com.revature.services.ReimbursementService;
 import io.javalin.http.Handler;
 
@@ -17,7 +18,7 @@ public class ReimbursementController {
 	public Handler handleAllReimbursements = ctx -> {
 		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
 			ctx.status(401);
-			ctx.result("You must login as manager to view User data");
+			ctx.result("You must login as manager to handle User data");
 		} else {
 			rs.getAllReimbursements();
 			om.writeValueAsString(rs.getAllReimbursements());
@@ -26,7 +27,7 @@ public class ReimbursementController {
 	public Handler handleAllResolvedReimbursements = ctx -> {
 		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
 			ctx.status(401);
-			ctx.result("You must login as manager to view User data");
+			ctx.result("You must login as manager to handle User data");
 		} else {
 			rs.getAllResolvedReimbursements();
 			om.writeValueAsString(rs.getAllResolvedReimbursements());
@@ -35,7 +36,7 @@ public class ReimbursementController {
 	public Handler handleAllPendingReimbursements = ctx-> {
 		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
 			ctx.status(401);
-			ctx.result("You must login as manager to view User data");
+			ctx.result("You must login as manager to handle User data");
 		} else {
 			rs.getAllPendingReimbursement();
 			om.writeValueAsString(rs.getAllReimbursements());
@@ -45,7 +46,7 @@ public class ReimbursementController {
 	public Handler handleGetReimbursementsById = ctx-> {
 		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
 			ctx.status(401);
-			ctx.result("You must login as manager to view User data");
+			ctx.result("You must login as manager to handle User data");
 		} else {
 			int id = Integer.parseInt(ctx.pathParam("id"));
 			rs.getAllReimbursementsById(id);
@@ -56,7 +57,7 @@ public class ReimbursementController {
 	public Handler handleApproveReimbursementsById = ctx-> {
 		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
 			ctx.status(401);
-			ctx.result("You must login as manager to view User data");
+			ctx.result("You must login as manager to handle User data");
 		} else {
 			int id = Integer.parseInt(ctx.pathParam("id"));
 			rs.approvePending(id);
@@ -67,11 +68,35 @@ public class ReimbursementController {
 	public Handler handleDenyReimbursementsById = ctx-> {
 		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
 			ctx.status(401);
-			ctx.result("You must login as manager to view User data");
+			ctx.result("You must login as manager to handle User data");
 		} else {
 			int id = Integer.parseInt(ctx.pathParam("id"));
 			rs.denyPending(id);
 			om.writeValueAsString(rs.getAllResolvedReimbursements());
+		}
+	};
+	public Handler handleRegister = (ctx) -> {
+
+		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "1")) {
+			ctx.status(401);
+			ctx.result("You must login as User to create Reimbursement");
+		} else {
+			RegisterReimbObject rro = om.readValue(ctx.body(), RegisterReimbObject.class);
+
+			rs.registerReimbursement(rro.amount, rro.dateSubmitted, rro.dateResolved, rro.description, rro.reimbursementAuthor, rro.reimbursementResolver, rro.reimbursementType, rro.reimbursementStatus);
+			ctx.status(201);
+			ctx.result("Reimbursement Registered");
+		}
+	};
+
+	public Handler handleGetAllPendingRequests = (ctx) -> {
+		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
+			ctx.status(401);
+			ctx.result("You must login as User to view User pending requests");
+		} else {
+			int id = Integer.parseInt(ctx.pathParam("id"));
+			ctx.result(om.writeValueAsString(rs.getAllPendingRequests(id)));
+			ctx.status(200);
 		}
 	};
 

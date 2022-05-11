@@ -34,7 +34,8 @@ public class ReimbursementService {
 		ird.denyPendingReimbursement(id);
 	}
 
-	public void registerReimbursement(double amount, Date dateSubmitted, Date dateResolved, String description, int author, int resolver, int type, int status){
+	public void registerReimbursement(double amount, Date dateSubmitted, Date dateResolved, String description, int author, int resolver, int type){
+		int status = 1;
 		Reimbursement reimbursement = new Reimbursement(0,amount, dateSubmitted, dateResolved,description,author,resolver,type,status);
 		ird.createReimbursement(reimbursement);
 	}

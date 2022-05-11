@@ -60,6 +60,19 @@ public class UserController {
 		}
 
 	};
+	public Handler handleGetUserByUsername = (ctx) -> {
+		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
+			ctx.status(401);
+			ctx.result("You must login as manager to view User data");
+		} else {
+
+			String username = ctx.pathParam("username");
+
+			us.getUserByUsername(username);
+			ctx.result(om.writeValueAsString(us.getUserByUsername(username)));
+		}
+
+	};
 
 	public Handler handleLogout = (ctx) -> {
 		ctx.req.getSession().invalidate();

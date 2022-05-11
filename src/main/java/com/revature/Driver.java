@@ -35,6 +35,7 @@ public class Driver {
                 post("/register", uc.handleRegister);
                 post("/login", uc.handleLogin);
                 get("/all", uc.handleAllUsers);
+                get("/{username}", uc.handleGetUserByUsername);
                 put("/logout", uc.handleLogout);
             });
         });

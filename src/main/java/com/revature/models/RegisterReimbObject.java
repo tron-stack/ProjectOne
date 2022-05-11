@@ -10,5 +10,4 @@ public class RegisterReimbObject {
 	public int reimbursementAuthor;
 	public int reimbursementResolver;
 	public int reimbursementType;
-	public int reimbursementStatus;
 }

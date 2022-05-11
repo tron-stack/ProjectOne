@@ -39,7 +39,7 @@ public class ReimbursementController {
 			ctx.result("You must login as manager to handle User data");
 		} else {
 			rs.getAllPendingReimbursement();
-			ctx.result(om.writeValueAsString(rs.getAllReimbursements()));
+			ctx.result(om.writeValueAsString(rs.getAllPendingReimbursement()));
 		}
 	};
 
@@ -83,7 +83,7 @@ public class ReimbursementController {
 		} else {
 			RegisterReimbObject rro = om.readValue(ctx.body(), RegisterReimbObject.class);
 
-			rs.registerReimbursement(rro.amount, rro.dateSubmitted, rro.dateResolved, rro.description, rro.reimbursementAuthor, rro.reimbursementResolver, rro.reimbursementType, rro.reimbursementStatus);
+			rs.registerReimbursement(rro.amount, rro.dateSubmitted, rro.dateResolved, rro.description, rro.reimbursementAuthor, rro.reimbursementResolver, rro.reimbursementType);
 			ctx.status(201);
 			ctx.result("Reimbursement Registered");
 		}

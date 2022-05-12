@@ -6,7 +6,6 @@ import com.revature.dao.IReimbursementDao;
 import com.revature.dao.IUserDao;
 import com.revature.dao.ReimbursementDaoJDBC;
 import com.revature.dao.UserDaoJDBC;
-import com.revature.models.User;
 import com.revature.services.ReimbursementService;
 import com.revature.services.UserService;
 import io.javalin.Javalin;
@@ -25,10 +24,8 @@ public class Driver {
         ReimbursementService rs = new ReimbursementService(ird);
         UserController uc = new UserController(us);
         ReimbursementController rc = new ReimbursementController(rs);
-
         Javalin server = Javalin.create(config -> {
             config.enableCorsForAllOrigins();
-            // config.addStaticFiles("/public", Location.CLASSPATH);
         });
         server.routes(()-> {
             path("users", () -> {
@@ -39,7 +36,6 @@ public class Driver {
                 put("/logout", uc.handleLogout);
             });
         });
-
         server.routes(()-> {
             path("reimbursements", () -> {
                 post("/register", rc.handleRegisterReimbursement);
@@ -52,11 +48,6 @@ public class Driver {
                 put("/deny/{id}", rc.handleDenyReimbursementsById);
             });
         });
-        // checking update
-        // User user = new User("cpalden","password","chime","palden","cpalden@gmail.com",2);
-        // icd.createUser(user);
-        // checking delete
-        //iud.deleteUser(3);
         server.start(8000);
     }
 }

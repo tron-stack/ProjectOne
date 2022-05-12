@@ -5,12 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DaoUtilities {
-
     private static final String CONNECTION_USERNAME = "dbuser";
     private static final String CONNECTION_PASSWORD = "password";
     private static final String URL = "jdbc:postgresql://localhost:5432/reimbursementdb";
     private static Connection connection;
-
     public static synchronized Connection getConnection() throws SQLException {
         if (connection == null) {
             try {
@@ -21,7 +19,6 @@ public class DaoUtilities {
             }
             connection = DriverManager.getConnection(URL, CONNECTION_USERNAME, CONNECTION_PASSWORD);
         }
-
         //If connection was closed then retrieve a new connection
         if (connection.isClosed()){
             System.out.println("Opening new connection...");
@@ -29,5 +26,4 @@ public class DaoUtilities {
         }
         return connection;
     }
-
 }

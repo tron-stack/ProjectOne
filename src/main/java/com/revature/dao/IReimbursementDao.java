@@ -5,18 +5,12 @@ import com.revature.models.Reimbursement;
 import java.util.List;
 
 public interface IReimbursementDao {
-
 	public void createReimbursement(Reimbursement reimbursement);
-
 	public List<Reimbursement> readAllPendingRequests(int statusId);
-
 	public List<Reimbursement> getAllReimbursements();
 	public List<Reimbursement> getAllPendingReimbursements();
 	public List<Reimbursement> getAllResolvedReimbursements();
-
 	public List<Reimbursement> getAllReimbursementsById(int id);
-
 	public void approvePendingReimbursement(int id);
 	public void denyPendingReimbursement(int id);
-
 }

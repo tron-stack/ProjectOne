@@ -6,40 +6,26 @@ import com.revature.models.RegisterObject;
 import com.revature.models.User;
 import com.revature.services.UserService;
 import io.javalin.http.Handler;
-
 import java.util.Objects;
 
 public class UserController {
 	private UserService us;
 	private ObjectMapper om;
-
 	public UserController(UserService us) {
 		this.us = us;
 		this.om = new ObjectMapper();
 	}
-
 	public Handler handleRegister = (ctx) -> {
 		RegisterObject ro = om.readValue(ctx.body(), RegisterObject.class);
-
 		//System.out.println(ro);
-
-
 				us.registerUser(ro.username, ro.password, ro.firstName, ro.lastName, ro.email, ro.userRole);
-
 				ctx.status(201);
 				ctx.result("Create user");
 				ctx.result(om.writeValueAsString(us.getUserByUsername(ro.username)));
-
-
-
-
 	};
-
 	public Handler handleLogin = (ctx) -> {
 		LoginObject lo = om.readValue(ctx.body(), LoginObject.class);
-
 		User u = us.loginUser(lo.username, lo.password);
-
 		if(u == null){
 			ctx.status(403);
 			ctx.result("Username or password was incorrect");
@@ -51,7 +37,6 @@ public class UserController {
 			ctx.result(om.writeValueAsString(u));
 		}
 	};
-
 	public Handler handleAllUsers = (ctx) -> {
 		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
 			ctx.status(401);
@@ -60,26 +45,19 @@ public class UserController {
 			us.getAllUser();
 			ctx.result(om.writeValueAsString(us.getAllUser()));
 		}
-
 	};
 	public Handler handleGetUserByUsername = (ctx) -> {
 		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
 			ctx.status(401);
 			ctx.result("You must login as manager to view User data");
 		} else {
-
 			String username = ctx.pathParam("username");
-
 			us.getUserByUsername(username);
 			ctx.result(om.writeValueAsString(us.getUserByUsername(username)));
 		}
-
 	};
-
 	public Handler handleLogout = (ctx) -> {
 		ctx.req.getSession().invalidate();
 		ctx.result("You logged out");
 	};
-
-
 }

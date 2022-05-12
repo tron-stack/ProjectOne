@@ -9,7 +9,7 @@ e
 .gitattributes,2\4\24139dae656713ba861751fb2c2ac38839349a7a
 b
 2src/main/java/com/revature/utils/DaoUtilities.java,0\d\0d5ccb9ce277847964fa482aeaf8faf7451ffbe1
-V
-&src/main/java/com/revature/Driver.java,1\a\1a16ee56c43a3cc184f94c51ee477e187b4a4e24
 j
 :src/main/java/com/revature/models/RegisterReimbObject.java,2\b\2bb8eb10eb339bd286a4571be160842ddf41e823
+[
++src/main/java/com/revature/models/User.java,c\1\c185cfbb3b91f30f1c6d725663f8833dc796c0aa

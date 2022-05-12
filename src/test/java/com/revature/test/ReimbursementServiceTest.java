@@ -1,7 +1,15 @@
 package com.revature.test;
 
+import com.revature.Driver;
 import com.revature.dao.IReimbursementDao;
+import com.revature.dao.IUserDao;
+import com.revature.services.ReimbursementService;
+import com.revature.services.UserService;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.List;
@@ -10,54 +18,62 @@ import static org.junit.Assert.*;
 
 public class ReimbursementServiceTest {
 
-	@Test
-	public void getAllReimbursements() {
+
+
+	@Mock
+	static IReimbursementDao ird;
+
+	//We also have to use inject mocks, because UserService depends on UserDao
+	@InjectMocks
+	static ReimbursementService rs;
+	@BeforeClass
+	public void setUpDao() {
 		IReimbursementDao ird = Mockito.mock(IReimbursementDao.class);
 
+	}
+	@Test
+	public void getAllReimbursements() {
 		assertNotNull(ird.getAllReimbursements());
+
 
 	}
 
 	@Test
 	public void getAllPendingReimbursement() {
-		IReimbursementDao ird = Mockito.mock(IReimbursementDao.class);
 		assertNotNull(ird.getAllPendingReimbursements());
 
 	}
 
 	@Test
 	public void getAllResolvedReimbursements() {
-		IReimbursementDao ird = Mockito.mock(IReimbursementDao.class);
+		assertNotNull(ird.getAllResolvedReimbursements());
 
 	}
 
 	@Test
 	public void getAllReimbursementsById() {
-		IReimbursementDao ird = Mockito.mock(IReimbursementDao.class);
-
+		int id =4;
+		assertEquals(ird.getAllReimbursementsById(id), )
 	}
 
 	@Test
 	public void approvePending() {
-		IReimbursementDao ird = Mockito.mock(IReimbursementDao.class);
 
 	}
 
 	@Test
 	public void denyPending() {
-		IReimbursementDao ird = Mockito.mock(IReimbursementDao.class);
 
 	}
 
 	@Test
 	public void registerReimbursement() {
-		IReimbursementDao ird = Mockito.mock(IReimbursementDao.class);
 
 	}
 
 	@Test
 	public void getAllPendingRequests() {
-		IReimbursementDao ird = Mockito.mock(IReimbursementDao.class);
 
 	}
+
 }

@@ -38,6 +38,7 @@ public class UserDaoJDBC implements IUserDao{
 
         }catch(SQLException e){
             e.printStackTrace();
+
         }
 
     }

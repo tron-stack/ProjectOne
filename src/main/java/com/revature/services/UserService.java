@@ -20,6 +20,9 @@ public class UserService {
 	public User getUserById(int id){
 		return iud.getUserById(id);
 	}
+	public User getUserByUsername(String uName){
+		return iud.getUserByUsername(uName);
+	}
 	public List<User> readUserList() {
 		return iud.getAllUsers();
 	}

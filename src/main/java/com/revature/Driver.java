@@ -17,8 +17,6 @@ public class Driver {
 
     public static void main(String[] args){
 
-
-
         IUserDao iud = new UserDaoJDBC();
         UserService us = new UserService(iud);
         UserController uc = new UserController(us);

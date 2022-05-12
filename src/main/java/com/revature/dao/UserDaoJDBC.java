@@ -32,11 +32,9 @@ public class UserDaoJDBC implements IUserDao{
             ps.setInt(6,user.getUserRole());
 
             ps.execute();
-
         }catch(SQLException e){
             e.printStackTrace();
         }
-
     }
 
     @Override

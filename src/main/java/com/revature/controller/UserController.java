@@ -19,11 +19,9 @@ public class UserController {
 	public Handler handleRegister = (ctx) -> {
 		RegisterObject ro = om.readValue(ctx.body(), RegisterObject.class);
 
-		//System.out.println(ro);
-
 		us.registerUser(ro.username, ro.password, ro.firstName, ro.lastName, ro.email, ro.userRole);
 		ctx.status(201);
-		ctx.result("Create user");
+		ctx.result("Created user");
 	};
 
 	public Handler handleGetAllUsers = (ctx) -> {

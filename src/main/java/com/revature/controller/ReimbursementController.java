@@ -78,7 +78,6 @@ public class ReimbursementController {
 		} else {
 			RegisterReimbObject rro = om.readValue(ctx.body(), RegisterReimbObject.class);
 			int reimbursementAuthor =  Integer.parseInt((String) ctx.req.getSession().getAttribute("userId"));
-			int defaultResolver = 1;
 			rs.registerReimbursement(rro.amount, rro.dateSubmitted, rro.dateResolved, rro.description, reimbursementAuthor, rro.reimbursementType);
 			ctx.status(201);
 			ctx.result("Reimbursement Registered");

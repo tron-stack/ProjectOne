@@ -32,4 +32,13 @@ public class UserService {
 	public User getUserByUsername(String username){
 		return iud.getUserByUsername(username);
 	}
+	public User getUserById(int id){
+		return iud.getUserById(id);
+	}
+	public void updateUser(User user){
+		iud.updateUser(user);
+	}
+	public List<User> readUserList() {
+		return iud.getAllUsers();
+	}
 }

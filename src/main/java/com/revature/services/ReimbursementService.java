@@ -36,4 +36,11 @@ public class ReimbursementService {
 	public List<Reimbursement> getAllPendingRequests(int statusId){
 		return ird.readAllPendingRequests(statusId);
 	}
+	public List<Reimbursement> getAllRequestsByStatus(int userid, int statusId){
+		return ird.readAllRequestsByStatus(userid, statusId);
+	}
+
+	public List<Reimbursement> getAllRequestsByUserId(int id){
+		return ird.readAllRequestsById(id);
+	}
 }

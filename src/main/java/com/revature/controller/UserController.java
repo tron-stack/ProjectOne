@@ -37,6 +37,20 @@ public class UserController {
 			ctx.result(om.writeValueAsString(u));
 		}
 	};
+	public Handler handleGetAllUsers = (ctx) -> {
+		ctx.result(om.writeValueAsString(us.readUserList()));
+		ctx.status(200);
+	};
+
+	public Handler handleUpdateUser = (ctx) -> {
+		int userid = Integer.parseInt((String)ctx.req.getSession().getAttribute("userId"));
+		User user = new User();
+		user = om.readValue(ctx.body(), User.class);
+		user.setUserID(userid);
+		us.updateUser(user);
+		ctx.status(201);
+		ctx.result("User updated");
+	};
 	public Handler handleAllUsers = (ctx) -> {
 		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
 			ctx.status(401);
@@ -55,6 +69,11 @@ public class UserController {
 			us.getUserByUsername(username);
 			ctx.result(om.writeValueAsString(us.getUserByUsername(username)));
 		}
+	};
+	public Handler handleGetUserById = (ctx) -> {
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		ctx.result(om.writeValueAsString(us.getUserById(id)));
+		ctx.status(200);
 	};
 	public Handler handleLogout = (ctx) -> {
 		ctx.req.getSession().invalidate();

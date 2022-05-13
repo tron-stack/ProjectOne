@@ -34,6 +34,9 @@ public class Driver {
                 get("/all", uc.handleAllUsers);
                 get("/{username}", uc.handleGetUserByUsername);
                 put("/logout", uc.handleLogout);
+                get("/", uc.handleGetAllUsers);
+                put("/", uc.handleUpdateUser);
+                get("/{id}",uc.handleGetUserById);
             });
         });
         server.routes(()-> {
@@ -43,6 +46,8 @@ public class Driver {
                 get("/resolved", rc.handleAllResolvedReimbursements);
                 get("/pendingmanager", rc.handleAllPendingReimbursements);
                 get("/pendinguser", rc.handleGetAllPendingRequests);
+                get("/all", rc.handleGetAllRequestsByUserId);
+                get("/status/{id}", rc.handleGetAllRequestsByStatus);
                 get("/{id}", rc.handleGetReimbursementsById);
                 put("/{id}", rc.handleApproveReimbursementsById);
                 put("/deny/{id}", rc.handleDenyReimbursementsById);

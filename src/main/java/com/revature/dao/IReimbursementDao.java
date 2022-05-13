@@ -13,4 +13,7 @@ public interface IReimbursementDao {
 	public List<Reimbursement> getAllReimbursementsById(int id);
 	public void approvePendingReimbursement(int id);
 	public void denyPendingReimbursement(int id);
+	public List<Reimbursement> readAllRequestsByStatus(int userId, int statusId);
+
+	public List<Reimbursement> readAllRequestsById(int userId);
 }

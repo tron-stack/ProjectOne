@@ -55,7 +55,8 @@ public class ReimbursementController {
 			ctx.result("You must login as manager to handle User data");
 		} else {
 			int id = Integer.parseInt(ctx.pathParam("id"));
-			rs.approvePending(id);
+			int userId = Integer.parseInt((String) ctx.req.getSession().getAttribute("userId"));
+			rs.approvePending(id, userId);
 			ctx.result(om.writeValueAsString(rs.getAllResolvedReimbursements()));
 		}
 	};
@@ -65,7 +66,8 @@ public class ReimbursementController {
 			ctx.result("You must login as manager to handle User data");
 		} else {
 			int id = Integer.parseInt(ctx.pathParam("id"));
-			rs.denyPending(id);
+			int userId = Integer.parseInt((String) ctx.req.getSession().getAttribute("userId"));
+			rs.denyPending(id, userId);
 			ctx.result(om.writeValueAsString(rs.getAllResolvedReimbursements()));
 		}
 	};
@@ -75,7 +77,9 @@ public class ReimbursementController {
 			ctx.result("You must login as User to create Reimbursement");
 		} else {
 			RegisterReimbObject rro = om.readValue(ctx.body(), RegisterReimbObject.class);
-			rs.registerReimbursement(rro.amount, rro.dateSubmitted, rro.dateResolved, rro.description, rro.reimbursementAuthor, rro.reimbursementResolver, rro.reimbursementType);
+			int reimbursementAuthor =  Integer.parseInt((String) ctx.req.getSession().getAttribute("userId"));
+			int defaultResolver = 1;
+			rs.registerReimbursement(rro.amount, rro.dateSubmitted, rro.dateResolved, rro.description, reimbursementAuthor, rro.reimbursementType);
 			ctx.status(201);
 			ctx.result("Reimbursement Registered");
 		}

@@ -122,24 +122,29 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
 		}
 	}
 	@Override
-	public void approvePendingReimbursement(int id) {
-		String sql = "update reimbursement set reimbursement_status = 2 where reimbursement_id = ?";
+	public void approvePendingReimbursement(int id, int userId) {
+		String sql = "update reimbursement set reimbursement_status = 2, resolved_date= ?, reimbursement_resolver = ? where reimbursement_id = ?";
 		try {
 			Connection conn = DaoUtilities.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
+			ps.setDate(1, Date.valueOf(java.time.LocalDate.now()));
+			ps.setInt(2, userId);
+			ps.setInt(3, id);
 			ps.execute();
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
 	}
 	@Override
-	public void denyPendingReimbursement(int id) {
-		String sql = "update reimbursement set reimbursement_status = 3 where reimbursement_id = ?";
+	public void denyPendingReimbursement(int id, int userId) {
+		String sql = "update reimbursement set reimbursement_status = 3, resolved_date= ?, reimbursement_resolver = ?  where reimbursement_id = ?";
 		try {
 			Connection conn = DaoUtilities.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
+
+			ps.setDate(1, Date.valueOf(java.time.LocalDate.now()));
+			ps.setInt(2, userId);
+			ps.setInt(3, id);
 			ps.execute();
 		} catch(SQLException e){
 			e.printStackTrace();

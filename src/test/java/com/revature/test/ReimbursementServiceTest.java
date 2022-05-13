@@ -76,26 +76,26 @@ public class ReimbursementServiceTest {
 
 	@Test
 	public void approvePending() {
-		doNothing().when(ird).approvePendingReimbursement(any());
-		rs.approvePending(any());
+		doNothing().when(ird).approvePendingReimbursement(any(),any());
+		rs.approvePending(any(),any());
 
-		verify(ird).approvePendingReimbursement(any());
+		verify(ird).approvePendingReimbursement(any(),any());
 
 	}
 
 	@Test
 	public void denyPending() {
-		doNothing().when(ird).denyPendingReimbursement(any());
-		rs.denyPending(any());
+		doNothing().when(ird).denyPendingReimbursement(any(),any());
+		rs.denyPending(any(),any());
 
-		verify(ird).approvePendingReimbursement(any());
+		verify(ird).approvePendingReimbursement(any(),any());
 
 	}
 
 	@Test
 	public void registerReimbursement() {
 		doNothing().when(ird).createReimbursement(any());
-		rs.registerReimbursement(100.90, new Date(), new Date(), "description", 1, 2, 1);
+		rs.registerReimbursement(100.90, new Date(), new Date(), "description", 2, 1);
 
 		verify(ird).createReimbursement(any());
 

@@ -43,13 +43,18 @@ public class UserController {
 	};
 
 	public Handler handleUpdateUser = (ctx) -> {
-		int userid = Integer.parseInt((String)ctx.req.getSession().getAttribute("userId"));
-		User user = new User();
-		user = om.readValue(ctx.body(), User.class);
-		user.setUserID(userid);
-		us.updateUser(user);
-		ctx.status(201);
-		ctx.result("User updated");
+		if (ctx.req.getSession().getAttribute("loggedIn") == null) {
+			ctx.status(401);
+			ctx.result("You must login to update your data");
+		} else {
+			int userid = Integer.parseInt((String) ctx.req.getSession().getAttribute("userId"));
+			User user = new User();
+			user = om.readValue(ctx.body(), User.class);
+			user.setUserID(userid);
+			us.updateUser(user);
+			ctx.status(201);
+			ctx.result("User updated");
+		}
 	};
 	public Handler handleAllUsers = (ctx) -> {
 		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
@@ -71,9 +76,14 @@ public class UserController {
 		}
 	};
 	public Handler handleGetUserById = (ctx) -> {
-		int id = Integer.parseInt(ctx.pathParam("id"));
-		ctx.result(om.writeValueAsString(us.getUserById(id)));
-		ctx.status(200);
+		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "2")) {
+			ctx.status(401);
+			ctx.result("You must login as manager to view User data");
+		} else {
+			int id = Integer.parseInt(ctx.pathParam("id"));
+			ctx.result(om.writeValueAsString(us.getUserById(id)));
+			ctx.status(200);
+		}
 	};
 	public Handler handleLogout = (ctx) -> {
 		ctx.req.getSession().invalidate();

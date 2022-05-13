@@ -11,8 +11,8 @@ public interface IReimbursementDao {
 	public List<Reimbursement> getAllPendingReimbursements();
 	public List<Reimbursement> getAllResolvedReimbursements();
 	public List<Reimbursement> getAllReimbursementsById(int id);
-	public void approvePendingReimbursement(int id);
-	public void denyPendingReimbursement(int id);
+	public void approvePendingReimbursement(int id, int userId);
+	public void denyPendingReimbursement(int id, int userId);
 	public List<Reimbursement> readAllRequestsByStatus(int userId, int statusId);
 
 	public List<Reimbursement> readAllRequestsById(int userId);

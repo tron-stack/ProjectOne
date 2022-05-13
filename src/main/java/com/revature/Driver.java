@@ -42,10 +42,10 @@ public class Driver {
         server.routes(()-> {
             path("reimbursements", () -> {
                 post("/register", rc.handleRegisterReimbursement);
-                get("/all", rc.handleAllReimbursements);
+                get("/", rc.handleAllReimbursements);
                 get("/resolved", rc.handleAllResolvedReimbursements);
                 get("/pendingmanager", rc.handleAllPendingReimbursements);
-                get("/pendinguser", rc.handleGetAllPendingRequests);
+                get("/pendinguser/{id}", rc.handleGetAllPendingRequests);
                 get("/all", rc.handleGetAllRequestsByUserId);
                 get("/status/{id}", rc.handleGetAllRequestsByStatus);
                 get("/{id}", rc.handleGetReimbursementsById);

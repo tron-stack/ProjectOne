@@ -13,9 +13,8 @@ public class UserService {
 		this.iud = iud;
 	}
 
-	public void registerUser(String username, String password, String firstName, String lastName, String email, int userRole) {
-		User register = new User(0, username, password, firstName, lastName, email, userRole);
-		iud.createUser(register);
+	public void registerUser(User u) {
+		iud.createUser(u);
 	}
 	public User getUserById(int id){
 		return iud.getUserById(id);

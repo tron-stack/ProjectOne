@@ -2,7 +2,6 @@ package com.revature.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.LoginObject;
-import com.revature.models.RegisterObject;
 import com.revature.models.User;
 import com.revature.services.UserService;
 import io.javalin.http.Handler;
@@ -17,9 +16,9 @@ public class UserController {
 	}
 
 	public Handler handleRegister = (ctx) -> {
-		RegisterObject ro = om.readValue(ctx.body(), RegisterObject.class);
+		User user = om.readValue(ctx.body(), User.class);
 
-		us.registerUser(ro.username, ro.password, ro.firstName, ro.lastName, ro.email, ro.userRole);
+		us.registerUser(user);
 		ctx.status(201);
 		ctx.result("Created user");
 	};
@@ -36,15 +35,20 @@ public class UserController {
 	};
 
 	public Handler handleUpdateUser = (ctx) -> {
-		int userid = Integer.parseInt((String)ctx.req.getSession().getAttribute("userId"));
-		User user = new User();
-		user = om.readValue(ctx.body(), User.class);
-		user.setUserID(userid);
+		if(ctx.req.getSession().getAttribute("loggedIn") == null){
+			ctx.status(403);
+			ctx.result("Please login to update.");
+		} else {
+			int userid = Integer.parseInt((String)ctx.req.getSession().getAttribute("userId"));
+			User user = new User();
+			user = om.readValue(ctx.body(), User.class);
 
+			user.setUserID(userid);
 
-		us.updateUser(user);
-		ctx.status(201);
-		ctx.result("User updated");
+			us.updateUser(user);
+			ctx.status(201);
+			ctx.result("User updated");
+		}
 	};
 	public Handler handleLogin = (ctx) -> {
 		LoginObject lo = om.readValue(ctx.body(), LoginObject.class);
@@ -64,8 +68,9 @@ public class UserController {
 	};
 
 	public Handler handleLogout = (ctx) -> {
+		int userid = Integer.parseInt((String)ctx.req.getSession().getAttribute("userId"));
 		ctx.req.getSession().invalidate();
-		ctx.result("You logged out");
+		ctx.result("User with id:" + userid + " logged out.");
 	};
 
 

@@ -17,11 +17,16 @@ public class ReimbursementController {
     }
 
     public Handler handleRegister = (ctx) -> {
-        RegisterReimbObject rro = om.readValue(ctx.body(), RegisterReimbObject.class);
+        if(!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")),"1")){
+            ctx.status(401);
+            ctx.result("You must login as an Employee to register a request");
+        }else {
+            RegisterReimbObject rro = om.readValue(ctx.body(), RegisterReimbObject.class);
 
-        rs.registerReimbursement(rro.amount,rro.dateSubmitted,rro.dateResolved,rro.description,rro.reimbursementAuthor,rro.reimbursementResolver, rro.reimbursementType, rro.reimbursementStatus);
-        ctx.status(201);
-        ctx.result("Reimbursement Registered");
+            rs.registerReimbursement(rro.amount, rro.dateSubmitted, rro.dateResolved, rro.description, rro.reimbursementAuthor, rro.reimbursementResolver, rro.reimbursementType, rro.reimbursementStatus);
+            ctx.status(201);
+            ctx.result("Reimbursement Registered");
+        }
     };
 
     public Handler handleGetAllRequestsByStatus = (ctx) -> {

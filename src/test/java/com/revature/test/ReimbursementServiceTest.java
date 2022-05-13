@@ -66,34 +66,19 @@ public class ReimbursementServiceTest {
 	@Test
 	public void getAllReimbursementsById() {
 
-		Reimbursement r = new Reimbursement(100,23.44,new Date(), new Date(), "description", 1, 2, 1, 1);
-		doReturn(r).when(ird).getAllReimbursementsById(r.getReimbursementId());
+		List<Reimbursement> list = new ArrayList<>();
+		doReturn(list).when(ird).getAllReimbursementsById(anyInt());
 
-		rs.getAllReimbursementsById(r.getReimbursementId());
+		rs.getAllReimbursementsById(anyInt());
 
-		verify(ird).getAllReimbursementsById(r.getReimbursementId());
+		verify(ird).getAllReimbursementsById(anyInt());
 	}
 
-	@Test
-	public void approvePending() {
-		doNothing().when(ird).approvePendingReimbursement(any(),any());
-		rs.approvePending(any(),any());
 
-		verify(ird).approvePendingReimbursement(any(),any());
-
-	}
-
-	@Test
-	public void denyPending() {
-		doNothing().when(ird).denyPendingReimbursement(any(),any());
-		rs.denyPending(any(),any());
-
-		verify(ird).approvePendingReimbursement(any(),any());
-
-	}
 
 	@Test
 	public void registerReimbursement() {
+
 		doNothing().when(ird).createReimbursement(any());
 		rs.registerReimbursement(100.90, new Date(), new Date(), "description", 2, 1);
 
@@ -102,15 +87,31 @@ public class ReimbursementServiceTest {
 
 	}
 
+
 	@Test
-	public void getAllPendingRequests() {
-
+	public void testGetAllRequestsByStatus() {
 		List<Reimbursement> list = new ArrayList<>();
-		doReturn(list).when(ird).getAllPendingReimbursements();
-		rs.getAllPendingRequests(23);
+		Reimbursement r = new Reimbursement(1,10.00,new Date(),new Date(),"This is for create request test", 1,2,3,2);
+		list.add(r);
 
-		verify(ird).getAllPendingReimbursements();
+		doReturn(list).when(ird).readAllRequestsByStatus(r.getReimbursementAuthor(),r.getReimbursementStatus());
 
+		rs.getAllRequestsByStatus(r.getReimbursementAuthor(),r.getReimbursementStatus());
+
+		verify(ird).readAllRequestsByStatus(r.getReimbursementAuthor(),r.getReimbursementStatus());
+	}
+
+	@Test
+	public void testGetAllRequestsByUserId() {
+		List<Reimbursement> list = new ArrayList<>();
+		Reimbursement r = new Reimbursement(1,10.00,new Date(),new Date(),"This is for create request test", 1,2,3,2);
+		list.add(r);
+
+		doReturn(list).when(ird).readAllRequestsById(r.getReimbursementAuthor());
+
+		rs.getAllRequestsByUserId(r.getReimbursementAuthor());
+
+		verify(ird).readAllRequestsById(r.getReimbursementAuthor());
 	}
 
 }

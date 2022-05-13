@@ -45,7 +45,6 @@ public class Driver {
                 get("/", rc.handleAllReimbursements);
                 get("/resolved", rc.handleAllResolvedReimbursements);
                 get("/pendingmanager", rc.handleAllPendingReimbursements);
-                get("/pendinguser/{id}", rc.handleGetAllPendingRequests);
                 get("/all", rc.handleGetAllRequestsByUserId);
                 get("/status/{id}", rc.handleGetAllRequestsByStatus);
                 get("/{id}", rc.handleGetReimbursementsById);

@@ -34,9 +34,6 @@ public class ReimbursementService {
 		Reimbursement reimbursement = new Reimbursement(0,amount, dateSubmitted, dateResolved,description,author,resolver,type,status);
 		ird.createReimbursement(reimbursement);
 	}
-	public List<Reimbursement> getAllPendingRequests(int statusId){
-		return ird.readAllPendingRequests(statusId);
-	}
 	public List<Reimbursement> getAllRequestsByStatus(int userid, int statusId){
 		return ird.readAllRequestsByStatus(userid, statusId);
 	}

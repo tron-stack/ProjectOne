@@ -9,9 +9,9 @@ public class UserService {
 	public UserService(IUserDao iud) {
 		this.iud = iud;
 	}
-	public void registerUser(String username, String password, String firstName, String lastName, String email, int userRole) {
-				User register = new User(0, username, password, firstName, lastName, email, userRole);
-				iud.createUser(register);
+	public void registerUser(User u) {
+
+				iud.createUser(u);
 	}
 	public User loginUser(String username, String password) {
 		User u = iud.getUserByUsername(username);

@@ -2,7 +2,6 @@ package com.revature.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.LoginObject;
-import com.revature.models.RegisterObject;
 import com.revature.models.User;
 import com.revature.services.UserService;
 import io.javalin.http.Handler;
@@ -16,12 +15,12 @@ public class UserController {
 		this.om = new ObjectMapper();
 	}
 	public Handler handleRegister = (ctx) -> {
-		RegisterObject ro = om.readValue(ctx.body(), RegisterObject.class);
+		User u = om.readValue(ctx.body(), User.class);
 		//System.out.println(ro);
-				us.registerUser(ro.username, ro.password, ro.firstName, ro.lastName, ro.email, ro.userRole);
+				us.registerUser(u);
 				ctx.status(201);
 				ctx.result("Create user");
-				ctx.result(om.writeValueAsString(us.getUserByUsername(ro.username)));
+				ctx.result(om.writeValueAsString(us.getUserByUsername(u.getUserName())));
 	};
 	public Handler handleLogin = (ctx) -> {
 		LoginObject lo = om.readValue(ctx.body(), LoginObject.class);

@@ -83,16 +83,6 @@ public class ReimbursementController {
 			ctx.result("Reimbursement Registered");
 		}
 	};
-	public Handler handleGetAllPendingRequests = (ctx) -> {
-		if (!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")), "1")) {
-			ctx.status(401);
-			ctx.result("You must login as User to view User pending requests");
-		} else {
-			int id = Integer.parseInt(ctx.pathParam("id"));
-			ctx.result(om.writeValueAsString(rs.getAllPendingRequests(id)));
-			ctx.status(200);
-		}
-	};
 	public Handler handleGetAllRequestsByStatus = (ctx) -> {
 		//
 		if(!Objects.equals(String.valueOf(ctx.req.getSession().getAttribute("roleId")),"1")){

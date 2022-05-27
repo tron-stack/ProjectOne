@@ -38,7 +38,4 @@ public class UserService {
 	public void updateUser(User user){
 		iud.updateUser(user);
 	}
-	public List<User> readUserList() {
-		return iud.getAllUsers();
-	}
 }

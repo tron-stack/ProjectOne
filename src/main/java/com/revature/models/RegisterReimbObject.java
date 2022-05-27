@@ -7,6 +7,6 @@ public class RegisterReimbObject {
 	public Date dateSubmitted;
 	public Date dateResolved;
 	public String description;
+	public int reimbursementAuthor;
 	public int reimbursementType;
-
 }

@@ -94,11 +94,11 @@ public class UserServiceTest {
 	public void testGetUserById() {
 		User u = new User(1,"cp","password","Chime","Walden","cp@gmail.com",1);
 
-		doReturn(u).when(iud).getUserById(u.getUserID());
+		doReturn(u).when(iud).getUserById(u.getUserId());
 
-		us.getUserById(u.getUserID());
+		us.getUserById(u.getUserId());
 
-		verify(iud).getUserById(u.getUserID());
+		verify(iud).getUserById(u.getUserId());
 	}
 
 	@Test
@@ -120,7 +120,7 @@ public class UserServiceTest {
 
 		doReturn(list).when(iud).getAllUsers();
 
-		us.readUserList();
+		us.getAllUser();
 		verify(iud).getAllUsers();
 
 	}
@@ -129,7 +129,7 @@ public class UserServiceTest {
 	public void testUpdateUser() {
 		User u = new User(1,"cp","password","Chime","Walden","cp@gmail.com",1);
 
-		doReturn(u).when(iud).updateUser(u);
+		doNothing().when(iud).updateUser(u);
 
 		us.updateUser(u);
 

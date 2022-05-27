@@ -5,6 +5,7 @@ import com.revature.utils.DaoUtilities;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ReimbursementDaoJDBC implements IReimbursementDao {
@@ -63,7 +64,7 @@ public class ReimbursementDaoJDBC implements IReimbursementDao {
 			return list;
 		}catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			return Collections.emptyList();
 		}
 	}
 	@Override
